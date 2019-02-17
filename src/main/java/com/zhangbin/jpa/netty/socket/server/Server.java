@@ -41,6 +41,12 @@ public class Server {
         //在端口上监听到一个新用户的连接 新用户的连接在java底层实际上是一个socket来处理的
         //在io编程模型中是一个socket在nio编程模型中是一个socketChannel
         //在netty中封装成的是一个自定义的channel 之后一系列的读写都可以在这个连接上操作 其实就是对一个socket的抽象
+        //然后服务端接受数据流的载体都是基于bytebuffer bytebuffer封装了一些很好用的api 基于这个api就可以和底层的数据流进行连接 进行通讯
+        //数据到了服务端之后 服务端要处理一些业务逻辑 比如clientHandler中的两段逻辑 生产环境中的服务端和客户端通信的例子，都会自定义一个二进制协议
+        //定义的过程是首先对二进制协议进行数据包的拆分 对不同类型的数据包都有不同的java对象 首先把字节中的字段读取出来 转换成自定义的java对象
+        //channelHandler netty把每一个处理过程封装成一个channelHandler，首先对数据包进行拆分 对应netty中的就是一个数据包的分包器 对于每一个类型的
+        //数据包都要进行不同的java对象的转换 扔到不同的处理器中去处理 这样就需要用户去定义不同的channelHandler ChannelHandler和ChannelHandler之间是
+        // 通过Pipeline管道进行连接的
 
 
         while (true){
